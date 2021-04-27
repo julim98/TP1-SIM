@@ -34,58 +34,131 @@ namespace TP1_SIM
         }
         private void controlarVariables()
         {
-
+           
+            //si o si
             if (validarVariables(txtRaiz.Text) == -1)
             {
                 MessageBox.Show("Error la Raiz \"X0\" debe ser entero y mayor a cero");
                 return;
             }
-            else if (validarVariables(txtC.Text) == -1)
+            // si o si
+            else if (validarVariables(txtC.Text) == -1 )
             {
                 MessageBox.Show("Error la constante \"c\" debe ser entero y mayor a cero");
                 return;
 
             }
-            else if (validarVariables(txtA.Text) == -1)
+            else if (txtA.Text == null && txtK.Text != "" )
             {
-                MessageBox.Show("Error la constante \"a\" debe ser entero y mayor a cero");
-                return;
+                if (validarVariables(txtK.Text) == -1)
+                {
+                    MessageBox.Show("Error el numero \"k\" debe ser entero y mayor a cero");
+                    return;
+                }
+
             }
-            else if (validarVariables(txtM.Text) == -1)
+            else if (txtA.Text != "" && txtK.Text == null)
             {
-                MessageBox.Show("Error el modulo \"m\" debe ser entero y mayor a cero");
-                return;
+                 if (validarVariables(txtA.Text) == -1)
+                {
+                    MessageBox.Show("Error la constante \"a\" debe ser entero y mayor a cero");
+                    return;
+                }
+
+
             }
-            else if (validarVariables(txtK.Text) == -1)
+            else if (txtM.Text == null && txtG.Text != "")
             {
-                MessageBox.Show("Error el numero \"k\" debe ser entero y mayor a cero");
-                return;
+                 if (validarVariables(txtG.Text) == -1)
+                {
+                    MessageBox.Show("Error el numero \"g\" debe ser entero y mayor a cero");
+                    return;
+                }
+
             }
-            else if (validarVariables(txtG.Text) == -1)
+            else if (txtM.Text != "" && txtG.Text == null)
             {
-                MessageBox.Show("Error el numero \"g\" debe ser entero y mayor a cero");
-                return;
+                if (validarVariables(txtM.Text) == -1)
+                {
+                    MessageBox.Show("Error el modulo \"m\" debe ser entero y mayor a cero");
+                    return;
+                }
+
+
             }
+
+
+            //else if (validarVariables(txtA.Text) == -1)
+            //{
+            //    MessageBox.Show("Error la constante \"a\" debe ser entero y mayor a cero");
+            //    return;
+            //}
+
+
+            //else if (validarVariables(txtM.Text) == -1)
+            //{
+            //    MessageBox.Show("Error el modulo \"m\" debe ser entero y mayor a cero");
+            //    return;
+            //}
+            
+
+            //else if (validarVariables(txtK.Text) == -1)
+            //{
+            //    MessageBox.Show("Error el numero \"k\" debe ser entero y mayor a cero");
+            //    return;
+            //}
+            //else if (validarVariables(txtG.Text) == -1)
+            //{
+            //    MessageBox.Show("Error el numero \"g\" debe ser entero y mayor a cero");
+            //    return;
+            //}
 
             //Cuando Todos los valores de las variables de entrada sean correctos pongo la bandera en True
             else
             {
                 bandOk = true;
+                
             }
         }
 
         private List<int> generarList()
         {
 
-           
+            int x = int.Parse(txtRaiz.Text);
+            int c = int.Parse(txtC.Text);
+            int a = 0;
+            int m = 0;
+            int k = 0;
+            int g = 0;
+            if (txtA.Text ==  null)
+            {
+                 k = int.Parse(txtK.Text);
+                 a = 1 + 4*k;
+            }
+            else if (txtK.Text == null)
+            {
+                a = int.Parse(txtA.Text);
+                
+            }
+            else if (txtM.Text == null)
+            {
+                 g = int.Parse(txtG.Text);
+                 m = (int )Math.Pow(2,g) ;
+            }
+            else if (txtG.Text == null)
+            {
+                 m = int.Parse(txtM.Text);
+            }
+            
+
             //creo una lista con los valores de las variables
             List<int> elementos = new List<int>();
-            elementos.Add(int.Parse(txtRaiz.Text));
-            elementos.Add(int.Parse(txtA.Text));
-            elementos.Add(int.Parse(txtC.Text));
-            elementos.Add(int.Parse(txtM.Text));
-            elementos.Add(int.Parse(txtK.Text));
-            elementos.Add(int.Parse(txtG.Text));
+            elementos.Add(x);
+            elementos.Add(a);
+            elementos.Add(c);
+            elementos.Add(m);
+            elementos.Add(k);
+            elementos.Add(g);
 
             return elementos;
         }
@@ -104,7 +177,7 @@ namespace TP1_SIM
                 //Verifico que el metodo seleccionado se solo el Multiplicativo
                 else if (!cbMixto.Checked && cbMultiplicativo.Checked)
                 {
-                    var elementos = generarList();
+                    
                     return;
                 }
                 else
@@ -119,9 +192,10 @@ namespace TP1_SIM
         //Este metodo genera los 20 numeros 
         private void btnGenerar_Click(object sender, EventArgs e)
         {
-
+            dgvTabla.Rows.Clear();
             controlarVariables();
             validarMetodo();
+            
                     
           
             

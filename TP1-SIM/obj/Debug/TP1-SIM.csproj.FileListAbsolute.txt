@@ -1,0 +1,10 @@
+C:\Users\hassa\source\repos\TP1-SIM\TP1-SIM\bin\Debug\TP1-SIM.exe.config
+C:\Users\hassa\source\repos\TP1-SIM\TP1-SIM\bin\Debug\TP1-SIM.exe
+C:\Users\hassa\source\repos\TP1-SIM\TP1-SIM\bin\Debug\TP1-SIM.pdb
+C:\Users\hassa\source\repos\TP1-SIM\TP1-SIM\obj\Debug\TP1-SIM.csprojAssemblyReference.cache
+C:\Users\hassa\source\repos\TP1-SIM\TP1-SIM\obj\Debug\TP1_SIM.FormMenuTP1.resources
+C:\Users\hassa\source\repos\TP1-SIM\TP1-SIM\obj\Debug\TP1_SIM.Properties.Resources.resources
+C:\Users\hassa\source\repos\TP1-SIM\TP1-SIM\obj\Debug\TP1-SIM.csproj.GenerateResource.cache
+C:\Users\hassa\source\repos\TP1-SIM\TP1-SIM\obj\Debug\TP1-SIM.csproj.CoreCompileInputs.cache
+C:\Users\hassa\source\repos\TP1-SIM\TP1-SIM\obj\Debug\TP1-SIM.exe
+C:\Users\hassa\source\repos\TP1-SIM\TP1-SIM\obj\Debug\TP1-SIM.pdb

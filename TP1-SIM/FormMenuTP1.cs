@@ -121,33 +121,64 @@ namespace TP1_SIM
             }
         }
 
-        private List<int> generarList()
+        private List<int> generarListLineal()
         {
 
-            int x = int.Parse(txtRaiz.Text);
-            int c = int.Parse(txtC.Text);
+            int x = 0;
+            int c = 0;
             int a = 0;
             int m = 0;
             int k = 0;
             int g = 0;
-            if (txtA.Text ==  null)
+
+            if(txtRaiz.Text != "")
+            {
+                x = int.Parse(txtRaiz.Text);
+            }
+            else
+            {
+                MessageBox.Show("DEBE COMPLETAR EL CAMPO DEL VALOR RAIZ (X0) OBLIGATORIAMENTE");
+                return null;
+            }
+
+            if (txtC.Text != "")
+            {
+                c = int.Parse(txtC.Text);
+            }
+            else
+            {
+                MessageBox.Show("DEBE COMPLETAR EL CAMPO DE C OBLIGATORIAMENTE");
+                return null;
+            }
+
+            if (txtK.Text != "")
             {
                  k = int.Parse(txtK.Text);
                  a = 1 + 4*k;
             }
-            else if (txtK.Text == null)
+            else if (txtA.Text != "")
             {
                 a = int.Parse(txtA.Text);
-                
             }
-            else if (txtM.Text == null)
+            else
+            {
+                MessageBox.Show("DEBE COMPLETAR EL CAMPO DE LOS VALORES A O K OBLIGATORIAMENTE");
+                return null;
+            }
+
+            if (txtG.Text != "")
             {
                  g = int.Parse(txtG.Text);
                  m = (int )Math.Pow(2,g) ;
             }
-            else if (txtG.Text == null)
+            else if(txtM.Text != "")
             {
                  m = int.Parse(txtM.Text);
+            }
+            else
+            {
+                MessageBox.Show("DEBE COMPLETAR EL CAMPO DE LOS VALORES G O M OBLIGATORIAMENTE");
+                return null;
             }
             
 
@@ -163,6 +194,76 @@ namespace TP1_SIM
             return elementos;
         }
 
+        private List<int> generarListMultiplicativo()
+        {
+
+            int x = 0;
+            int c = 0;
+            int a = 0;
+            int m = 0;
+            int k = 0;
+            int g = 0;
+
+            if (txtRaiz.Text != "")
+            {
+                x = int.Parse(txtRaiz.Text);
+            }
+            else
+            {
+                MessageBox.Show("DEBE COMPLETAR EL CAMPO DEL VALOR RAIZ (X0) OBLIGATORIAMENTE");
+                return null;
+            }
+
+            if (txtC.Text != "")
+            {
+                MessageBox.Show("C NO PUEDE TENER ALGUN VALOR PARA EL METODO MULTIPLICATIVO");
+                return null;
+            }
+
+            if (txtK.Text != "")
+            {
+                k = int.Parse(txtK.Text);
+                a = 3 + 8 * k;
+            }
+            else if (txtA.Text != "")
+            {
+                a = int.Parse(txtA.Text);
+            }
+            else
+            {
+                MessageBox.Show("DEBE COMPLETAR EL CAMPO DE LOS VALORES A O K OBLIGATORIAMENTE");
+                return null;
+            }
+
+            if (txtG.Text != "")
+            {
+                g = int.Parse(txtG.Text);
+                m = (int)Math.Pow(2, g);
+            }
+            else if (txtM.Text != "")
+            {
+                m = int.Parse(txtM.Text);
+            }
+            else
+            {
+                MessageBox.Show("DEBE COMPLETAR EL CAMPO DE LOS VALORES G O M OBLIGATORIAMENTE");
+                return null;
+            }
+
+
+            //creo una lista con los valores de las variables
+            List<int> elementos = new List<int>();
+            elementos.Add(x);
+            elementos.Add(a);
+            elementos.Add(c);
+            elementos.Add(m);
+            elementos.Add(k);
+            elementos.Add(g);
+
+            return elementos;
+        }
+
+
         private void validarMetodo()
         {
             if (bandOk == true)
@@ -170,14 +271,21 @@ namespace TP1_SIM
                 //Verifico que el metodo seleccionado se solo el Mixto
                 if (cbMixto.Checked && !cbMultiplicativo.Checked)
                 {
-                    var elementos = generarList();
-                    metodoMixto(elementos);
+                    var elementos = generarListLineal();
+                    if (elementos != null)
+                    {
+                        completarTabla(elementos);
+                    }
                     return;
                 }
                 //Verifico que el metodo seleccionado se solo el Multiplicativo
                 else if (!cbMixto.Checked && cbMultiplicativo.Checked)
                 {
-                    
+                    var elementos = generarListMultiplicativo();
+                    if (elementos != null)
+                    {
+                        completarTabla(elementos);
+                    }
                     return;
                 }
                 else
@@ -195,15 +303,10 @@ namespace TP1_SIM
             dgvTabla.Rows.Clear();
             controlarVariables();
             validarMetodo();
-            
-                    
-          
-            
-            
         }
 
         //Metodo Mixto o Lineal
-        private void metodoMixto(List<int> elements )
+        private void completarTabla(List<int> elements )
         {
             int x = elements[0];
             int a = elements[1];
@@ -232,14 +335,14 @@ namespace TP1_SIM
                     
                     axc = a * x + c;
                     resto = axc % m;
-                    rnd = resto / (m - 1);
+                    rnd = resto / m;
                     
                 }
                 else
                 {
                     axc = a * resto + c;
                     resto = axc % m;
-                    rnd = resto / (m - 1);
+                    rnd = resto / m;
                 }
                 
 

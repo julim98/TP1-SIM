@@ -12,7 +12,6 @@ namespace TP1_SIM
 {
     public partial class FormMenuTP1 : Form
     {
-        private bool bandOk = false;
         private bool proximo = false;
         public FormMenuTP1()
         {
@@ -31,94 +30,6 @@ namespace TP1_SIM
             }
 
             return -1;
-        }
-        private void controlarVariables()
-        {
-           
-            //si o si
-            if (validarVariables(txtRaiz.Text) == -1)
-            {
-                MessageBox.Show("Error la Raiz \"X0\" debe ser entero y mayor a cero");
-                return;
-            }
-            // si o si
-            else if (validarVariables(txtC.Text) == -1 )
-            {
-                MessageBox.Show("Error la constante \"c\" debe ser entero y mayor a cero");
-                return;
-
-            }
-            else if (txtA.Text == null && txtK.Text != "" )
-            {
-                if (validarVariables(txtK.Text) == -1)
-                {
-                    MessageBox.Show("Error el numero \"k\" debe ser entero y mayor a cero");
-                    return;
-                }
-
-            }
-            else if (txtA.Text != "" && txtK.Text == null)
-            {
-                 if (validarVariables(txtA.Text) == -1)
-                {
-                    MessageBox.Show("Error la constante \"a\" debe ser entero y mayor a cero");
-                    return;
-                }
-
-
-            }
-            else if (txtM.Text == null && txtG.Text != "")
-            {
-                 if (validarVariables(txtG.Text) == -1)
-                {
-                    MessageBox.Show("Error el numero \"g\" debe ser entero y mayor a cero");
-                    return;
-                }
-
-            }
-            else if (txtM.Text != "" && txtG.Text == null)
-            {
-                if (validarVariables(txtM.Text) == -1)
-                {
-                    MessageBox.Show("Error el modulo \"m\" debe ser entero y mayor a cero");
-                    return;
-                }
-
-
-            }
-
-
-            //else if (validarVariables(txtA.Text) == -1)
-            //{
-            //    MessageBox.Show("Error la constante \"a\" debe ser entero y mayor a cero");
-            //    return;
-            //}
-
-
-            //else if (validarVariables(txtM.Text) == -1)
-            //{
-            //    MessageBox.Show("Error el modulo \"m\" debe ser entero y mayor a cero");
-            //    return;
-            //}
-            
-
-            //else if (validarVariables(txtK.Text) == -1)
-            //{
-            //    MessageBox.Show("Error el numero \"k\" debe ser entero y mayor a cero");
-            //    return;
-            //}
-            //else if (validarVariables(txtG.Text) == -1)
-            //{
-            //    MessageBox.Show("Error el numero \"g\" debe ser entero y mayor a cero");
-            //    return;
-            //}
-
-            //Cuando Todos los valores de las variables de entrada sean correctos pongo la bandera en True
-            else
-            {
-                bandOk = true;
-                
-            }
         }
 
         private List<int> generarListLineal()
@@ -266,42 +177,39 @@ namespace TP1_SIM
 
         private void validarMetodo()
         {
-            if (bandOk == true)
+
+            //Verifico que el metodo seleccionado se solo el Mixto
+            if (cbMixto.Checked && !cbMultiplicativo.Checked)
             {
-                //Verifico que el metodo seleccionado se solo el Mixto
-                if (cbMixto.Checked && !cbMultiplicativo.Checked)
+                var elementos = generarListLineal();
+                if (elementos != null)
                 {
-                    var elementos = generarListLineal();
-                    if (elementos != null)
-                    {
-                        completarTabla(elementos);
-                    }
-                    return;
+                    completarTabla(elementos);
                 }
-                //Verifico que el metodo seleccionado se solo el Multiplicativo
-                else if (!cbMixto.Checked && cbMultiplicativo.Checked)
+                return;
+            }
+            //Verifico que el metodo seleccionado se solo el Multiplicativo
+            else if (!cbMixto.Checked && cbMultiplicativo.Checked)
+            {
+                var elementos = generarListMultiplicativo();
+                if (elementos != null)
                 {
-                    var elementos = generarListMultiplicativo();
-                    if (elementos != null)
-                    {
-                        completarTabla(elementos);
-                    }
-                    return;
+                    completarTabla(elementos);
                 }
-                else
-                {
-                    MessageBox.Show("ERROR SE DEBE SELECCIONAR UN SOLO METODO !!! ");
-                    return;
+                return;
+            }
+            else
+            {
+                MessageBox.Show("ERROR SE DEBE SELECCIONAR UN SOLO METODO !!! ");
+                return;
                     
-                }
-                
             }
         }
+
         //Este metodo genera los 20 numeros 
         private void btnGenerar_Click(object sender, EventArgs e)
         {
             dgvTabla.Rows.Clear();
-            controlarVariables();
             validarMetodo();
         }
 
